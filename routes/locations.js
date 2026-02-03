@@ -6,21 +6,44 @@ const pool = require("../db");
  * Save GPS location of a disease report
  */
 router.post("/", async (req, res) => {
-  const { disease_id, latitude, longitude, severity_override, notes } = req.body;
+  const {
+    disease_id,
+    latitude,
+    longitude,
+    severity_override,
+    notes,
+    shared_to,
+    officer_id,
+    image_url,
+    treatment_suggestion,
+    contact_info,
+  } = req.body;
 
   try {
     const result = await pool.query(
       `INSERT INTO disease_reports
-       (disease_id, latitude, longitude, severity_override, notes)
-       VALUES ($1, $2, $3, $4, $5)
+       (disease_id, latitude, longitude, severity_override, notes,
+        shared_to, officer_id, image_url, treatment_suggestion, contact_info)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
        RETURNING *`,
-      [disease_id, latitude, longitude, severity_override, notes]
+      [
+        disease_id,
+        latitude,
+        longitude,
+        severity_override,
+        notes,
+        shared_to,
+        officer_id,
+        image_url,
+        treatment_suggestion,
+        contact_info,
+      ]
     );
 
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to save disease report" });
+    res.status(500).json({ error: "Failed to save/share disease report" });
   }
 });
 

@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 # Load trained model
-model = load_model("tea_leaf_model.h5")
+model = load_model("model/tea_leaf_model.h5")
 
 # Class names (update according to your dataset)
 class_names = ['algal', 'bird_eye', 'brown_blight', 'gray_light', 'healthy', 'red_spot', 'white_spot']

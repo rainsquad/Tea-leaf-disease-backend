@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const locationRoutes = require("./routes/locations");
+const communityRoutes = require("./routes/community");
 
 const app = express();
 
@@ -10,7 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+
+//location
 app.use("/api/detection-locations", locationRoutes);
+
+//Community
+app.use("/api/community", communityRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Tea Disease GPS API Running");
